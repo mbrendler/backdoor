@@ -3,6 +3,7 @@ project("backdoor" C)
 
 include(cmake/clang-tidy.cmake)
 include(cmake/cppcheck.cmake)
+include(cmake/iwyu.cmake)
 if("${CMAKE_C_COMPILER_ID}" MATCHES "Clang")
   if(APPLE)
     include_directories(/usr/local/include)
