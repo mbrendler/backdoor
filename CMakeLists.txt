@@ -40,3 +40,7 @@ set_property(
   TARGET backdoor
   PROPERTY INTERPROCEDURAL_OPTIMIZATION ${IPO_SUPPORT}
 )
+
+enable_testing()
+
+add_test_executable(test_lib test/test_lib.c src/lib.c)
