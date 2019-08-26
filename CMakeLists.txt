@@ -44,3 +44,4 @@ set_property(
 enable_testing()
 
 add_test_executable(test_lib test/test_lib.c src/lib.c)
+add_test_executable(test_commands test/test_commands.c src/commands.c src/lib.c)
