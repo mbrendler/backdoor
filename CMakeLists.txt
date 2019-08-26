@@ -1,9 +1,11 @@
 cmake_minimum_required(VERSION 3.9.0)
 project("backdoor" C)
 
+include(cmake/add_test_executable.cmake)
 include(cmake/clang-tidy.cmake)
 include(cmake/cppcheck.cmake)
 include(cmake/iwyu.cmake)
+
 if("${CMAKE_C_COMPILER_ID}" MATCHES "Clang")
   if(APPLE)
     include_directories(/usr/local/include)
