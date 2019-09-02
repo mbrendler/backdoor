@@ -1,4 +1,4 @@
-FROM quay.io/invisionag/iwfm-build-base-docker:stable
+FROM debian:stable-slim
 
 RUN apt-get update \
   && apt-get upgrade -y \
