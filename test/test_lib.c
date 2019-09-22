@@ -17,9 +17,11 @@ static void test_parse_port_number(void** state) {
 static void test_str_isnumber(void** state) {
   (void)state;
   assert_true(str_isnumber("123"));
+  assert_true(str_isnumber("0"));
   assert_false(str_isnumber("12 3"));
   assert_false(str_isnumber("123a"));
   assert_false(str_isnumber("a"));
+  assert_false(str_isnumber("-1"));
 }
 
 static void test_split_filename_and_number(void** state) {
