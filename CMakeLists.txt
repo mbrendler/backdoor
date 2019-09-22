@@ -45,3 +45,12 @@ enable_testing()
 
 add_test_executable(test_lib test/test_lib.c src/lib.c)
 add_test_executable(test_commands test/test_commands.c src/commands.c src/lib.c)
+
+if(${CMAKE_C_COMPILER_ID} STREQUAL "GNU")
+  add_test_executable(test_backdoor
+    test/test_backdoor.c
+    src/backdoor.c
+    src/lib.c
+  )
+  target_wrap_function(test_backdoor exit printf server_run)
+endif()

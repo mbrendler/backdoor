@@ -1,3 +1,9 @@
+#ifndef TEST
+#  define WRAP(FN) FN
+#else
+#  define WRAP(FN) wrapped_ ## FN
+#endif
+
 #include "lib.h"
 #include "server.h"
 #include <stdio.h>
@@ -30,8 +36,9 @@ void parse_args(int argc, const char** argv, Parameters* parameters) {
   }
 }
 
-int main(int argc, const char** argv) {
+int WRAP(main) (int argc, const char** argv) {
   Parameters parameters = { .address = "127.0.0.1", .port = 44444 };
   parse_args(argc, argv, &parameters);
   server_run(parameters.address, parameters.port);
+  return 0;
 }
