@@ -2,4 +2,10 @@
 
 #include <stdnoreturn.h>
 
-noreturn void server_run(const char* address, int port);
+#ifndef TEST
+#  define NORETURN noreturn
+#else
+#  define NORETURN
+#endif
+
+NORETURN void server_run(const char* address, int port);
