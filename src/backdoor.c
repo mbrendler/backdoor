@@ -28,9 +28,6 @@ void parse_args(int argc, const char** argv, Parameters* parameters) {
       parameters->address = argv[1];
     }
   }
-  if (parameters->port < 0) {
-    exit(1);
-  }
 }
 
 int main(int argc, const char** argv) {
