@@ -12,6 +12,10 @@ function(add_test_executable target)
 endfunction()
 
 function(target_wrap_function target)
+  if(NOT ${CMAKE_C_COMPILER_ID} STREQUAL "GNU")
+    message(FATAL_ERROR "Only the GUN linker supports --wrap")
+  endif()
+
   foreach(fn IN LISTS ARGN)
     target_link_options("${target}" PUBLIC "-Wl,--wrap,${fn}")
   endforeach()
