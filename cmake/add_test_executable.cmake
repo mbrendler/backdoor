@@ -7,6 +7,6 @@ endfunction()
 
 function(target_wrap_function target)
   foreach(fn IN LISTS ARGN)
-    target_link_options("${target}" PUBLIC "-Wl--wrap,${fn}")
+    target_link_options("${target}" PUBLIC "-Wl,--wrap,${fn}")
   endforeach()
 endfunction()
