@@ -6,12 +6,12 @@ include(cmake/clang-tidy.cmake)
 include(cmake/cppcheck.cmake)
 include(cmake/iwyu.cmake)
 
-if("${CMAKE_C_COMPILER_ID}" MATCHES "Clang")
-  if(APPLE)
-    include_directories(/usr/local/include)
-    link_directories(/usr/local/lib)
-  endif()
+if(APPLE)
+  include_directories(SYSTEM /usr/local/include)
+  link_directories(/usr/local/lib)
+endif()
 
+if("${CMAKE_C_COMPILER_ID}" MATCHES "Clang")
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Weverything")
 endif()
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} \
