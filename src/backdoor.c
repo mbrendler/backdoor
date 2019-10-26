@@ -40,5 +40,7 @@ int WRAP(main) (int argc, const char** argv) {
   Parameters parameters = { .address = "127.0.0.1", .port = 44444 };
   parse_args(argc, argv, &parameters);
   server_run(parameters.address, parameters.port);
+#ifdef TEST
   return 0;
+#endif
 }
