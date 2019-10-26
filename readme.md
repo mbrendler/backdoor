@@ -1,6 +1,6 @@
 # backdoor
 
-A mini tool to verify some TCP socket.
+A mini tool to verify some TCP socket functionality.
 
 
 ## Dependencies
