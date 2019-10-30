@@ -1,11 +1,11 @@
 #define _GNU_SOURCE
 #include "test.h"
 #include "../src/server.h"
+#include <arpa/inet.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 #include <sys/socket.h>
-#include <arpa/inet.h>
 
 bool command_valid(const char* buffer) {
   check_expected(buffer);
