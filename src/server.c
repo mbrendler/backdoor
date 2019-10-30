@@ -21,11 +21,11 @@ void server_handle_connection(const int cfd) {
   }
 }
 
-noreturn void server_run(const char* address, int port) {
+int server_run(const char* address, int port) {
   const int sfd = socket(AF_INET, SOCK_STREAM, 0);
   if (sfd == -1) {
     log_pfatal("server socket");
-    exit(1);
+    return 1;
   }
 
   struct sockaddr_in servaddr = {
@@ -36,12 +36,12 @@ noreturn void server_run(const char* address, int port) {
 
   if (0 != bind(sfd, (struct sockaddr*)&servaddr, sizeof(servaddr))) {
     log_pfatal("server bind");
-    exit(1);
+    return 1;
   }
 
   if (0 != listen(sfd, 5)) {
     log_pfatal("server listen");
-    exit(1);
+    return 1;
   }
 
   while (1) {
@@ -50,7 +50,7 @@ noreturn void server_run(const char* address, int port) {
     const int cfd = accept(sfd, (struct sockaddr*)&cli, &client_socket_len);
     if (cfd < 0) {
       log_pfatal("server accept");
-      exit(1);
+      return 1;
     }
 
     server_handle_connection(cfd);
