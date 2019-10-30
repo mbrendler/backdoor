@@ -9,22 +9,13 @@ void __wrap_exit(int status) {
   check_expected(status);
 }
 
-char* stdout_received = NULL;
-
 int __wrap_printf(const char* fmt, ...) {
-  char* old = stdout_received;
   va_list ap;
   va_start(ap, fmt);
-  char *result;
-  vasprintf(&result, fmt, ap);
+  char *string;
+  vasprintf(&string, fmt, ap);
   va_end(ap);
-  if (stdout_received) {
-    asprintf(&stdout_received, "%s%s", old, result);
-    free(old);
-    free(result);
-  } else {
-    stdout_received = result;
-  }
+  check_expected(string);
   return 0;
 }
 
@@ -42,14 +33,22 @@ static void test_main_help(void** state) {
   expect_string(server_run, address, "--help");
   expect_value(server_run, port, 44444);
   expect_value(__wrap_exit, status, 0);
-  wrapped_main(2, argv);
-  assert_string_equal(
-    "./backdoor [-h|--help] [BIND_ADDRESS] [PORT]\n"
-    "\n"
-    "  BIND_ADDRESS  --  default: 127.0.0.1\n"
-    "  PORT          --  default: 44444\n",
-    stdout_received
+  expect_string(
+    __wrap_printf,
+    string,
+    "./backdoor [-h|--help] [BIND_ADDRESS] [PORT]\n\n"
   );
+  expect_string(
+    __wrap_printf,
+    string,
+    "  BIND_ADDRESS  --  default: 127.0.0.1\n"
+  );
+  expect_string(
+    __wrap_printf,
+    string,
+    "  PORT          --  default: 44444\n"
+  );
+  wrapped_main(2, argv);
 }
 
 static void test_main_no_args(void** state) {
