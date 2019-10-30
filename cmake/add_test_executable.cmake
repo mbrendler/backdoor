@@ -6,7 +6,7 @@ function(add_test_executable target)
     INTERPROCEDURAL_OPTIMIZATION FALSE
     COMPILE_DEFINITIONS TEST
     # -fno-builtin is needed to mock exit calls
-    COMPILE_FLAGS "-g -O0 -fno-builtin -Wunreachable-code-return"
+    COMPILE_FLAGS "-g -O0 -fno-builtin -Wunreachable-code"
   )
   add_test(${target} ${target})
 endfunction()
