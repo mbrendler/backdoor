@@ -52,5 +52,5 @@ if(${CMAKE_C_COMPILER_ID} STREQUAL "GNU")
     src/backdoor.c
     src/lib.c
   )
-  target_wrap_function(test_backdoor exit printf server_run)
+  target_wrap_function(test_backdoor exit printf)
 endif()

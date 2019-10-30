@@ -28,18 +28,19 @@ int __wrap_printf(const char* fmt, ...) {
   return 0;
 }
 
-void __wrap_server_run(const char* address, int port) {
+int server_run(const char* address, int port) {
   (void)address;
   (void)port;
   check_expected(address);
   check_expected(port);
+  return 23;
 }
 
 static void test_main_help(void** state) {
   (void)state;
   const char* argv[] = { "./backdoor", "--help" };
-  expect_string(__wrap_server_run, address, "--help");
-  expect_value(__wrap_server_run, port, 44444);
+  expect_string(server_run, address, "--help");
+  expect_value(server_run, port, 44444);
   expect_value(__wrap_exit, status, 0);
   wrapped_main(2, argv);
   assert_string_equal(
@@ -54,32 +55,32 @@ static void test_main_help(void** state) {
 static void test_main_no_args(void** state) {
   (void)state;
   const char* argv[] = { "./backdoor" };
-  expect_string(__wrap_server_run, address, "127.0.0.1");
-  expect_value(__wrap_server_run, port, 44444);
-  wrapped_main(1, argv);
+  expect_string(server_run, address, "127.0.0.1");
+  expect_value(server_run, port, 44444);
+  assert_int_equal(23, wrapped_main(1, argv));
 }
 
 static void test_main_with_address(void** state) {
   (void)state;
   const char* argv[] = { "./backdoor", "1.2.3.4" };
-  expect_string(__wrap_server_run, address, "1.2.3.4");
-  expect_value(__wrap_server_run, port, 44444);
+  expect_string(server_run, address, "1.2.3.4");
+  expect_value(server_run, port, 44444);
   wrapped_main(2, argv);
 }
 
 static void test_main_with_port(void** state) {
   (void)state;
   const char* argv[] = { "./backdoor", "12345" };
-  expect_string(__wrap_server_run, address, "127.0.0.1");
-  expect_value(__wrap_server_run, port, 12345);
+  expect_string(server_run, address, "127.0.0.1");
+  expect_value(server_run, port, 12345);
   wrapped_main(2, argv);
 }
 
 static void test_main_two_args(void** state) {
   (void)state;
   const char* argv[] = { "./backdoor", "4.5.6.7", "12345" };
-  expect_string(__wrap_server_run, address, "4.5.6.7");
-  expect_value(__wrap_server_run, port, 12345);
+  expect_string(server_run, address, "4.5.6.7");
+  expect_value(server_run, port, 12345);
   wrapped_main(3, argv);
 }
 
