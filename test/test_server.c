@@ -53,7 +53,7 @@ int __wrap_listen(int socket, int backlog) {
 int __wrap_accept(
   int socket,
   struct sockaddr *restrict address,
-  socklen_t *restrict address_len
+  const socklen_t *restrict address_len
 ) {
   (void)address;
   (void)address_len;
