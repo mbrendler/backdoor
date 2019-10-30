@@ -53,4 +53,18 @@ if(${CMAKE_C_COMPILER_ID} STREQUAL "GNU")
     src/lib.c
   )
   target_wrap_function(test_backdoor exit printf)
+
+  add_test_executable(test_server
+    test/test_server.c
+    src/server.c
+  )
+  target_wrap_function(test_server
+    socket
+    bind
+    listen
+    accept
+    read
+    system
+    close
+  )
 endif()
