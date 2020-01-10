@@ -1,6 +1,7 @@
 # backdoor
 
-A mini tool to verify some TCP socket functionality.
+A mini tool to verify some TCP socket functionality and learn testing with
+[cmocka](https://cmocka.org) ([cmocka documentation](https://api.cmocka.org)).
 
 
 ## Dependencies
